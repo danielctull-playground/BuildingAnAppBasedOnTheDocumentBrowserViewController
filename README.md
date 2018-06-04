@@ -1,12 +1,15 @@
-# Particles: Building a UIDocumentBrowserViewController Based Application
+# Building an App Based on the Document Browser View Controller
 
-Manages user interactions with files saved on different iCloud storage providers, and implements a custom document file format.
+Implement a custom document file format to manage user interactions with files on different cloud storage providers.
 
 ## Overview
 
-Users store their documents on different cloud storage providers, such as iCloud Drive. With document browser view controller, they can browse through and access their documents, no matter where they are stored. The document browser view controller lets them create new documents, and acts as a springboard into your application's main user interface.  
+Users can store their documents on different cloud storage providers, such as iCloud Drive. An app based on the document browser view controller allows users to browse and access their documents no matter where they are stored. The document browser view controller lets users create new documents, and acts as a springboard into your application's main user interface.
 
-This example app illustrates the usage of the document browser view controller. It registers a custom file format called Particles in the system, and allows the user to create new Particles documents on any of the the user's activated file providers. When choosing a document, the app presents an editor view, in which the document contents can be modified. Once the user is done with the modifications, the document is saved, and the user returns to the document browser view controller again. Apart from proper file handling using the `UIDocument` class, the app also illustrates the customization of the look of the document browser view controller, the usage of custom browser actions and the way it presents document view controllers with a custom zoom transition.
+This example illustrates how to use the document browser view controller. It registers a custom file format called Particles in the system, and allows the user to create new Particles documents on any of the user's activated file providers. When the user chooses a document, the app presents an editor view, in which the document contents can be modified. Once the user is done with the modifications, the document is saved, and the user returns to the document browser view controller.
+
+The app also demonstrates proper file handling using the `UIDocument` class, and how to build a Quick Look preview and thumbnail extension for the Particles file format. Additionally, this sample illustrates how to customize the appearance of the document browser view controller, the custom browser actions, and the presentation of document view controllers with a custom zoom transition.
+
 
 ## Getting Started
 
@@ -16,7 +19,7 @@ The `UIDocumentBrowserViewController` and this Particles app require at least iO
 
 When starting a new iOS project, Xcode offers to create a document based app. This template comes with everything needed to implement a great document based application. Use it as a starting point, if you want to create a document based application from scratch.
 
-Once you have instantiated the template, the project provides a storyboard, which uses a  `UIDocumentBrowserViewController` as its entry point. Additionally, the template creates a `UIDocument` subclass, Document, which acts as the representation of a document of your application at runtime. The logic in order to create new documents is already in place. When the user creates a new document, or opens an existing one by tapping a file in the document browser view controller, a `DocumentViewController` is presented, which has a reference to a `Document` instance. This `DocumentViewController` acts as the main user interface to modify the contents of a document.
+Once you have instantiated the template, the project provides a storyboard, which uses a `UIDocumentBrowserViewController` as its entry point. Additionally, the template creates a `UIDocument` subclass, Document, which acts as the representation of a document of your application at runtime. The logic in order to create new documents is already in place. When the user creates a new document, or opens an existing one by tapping a file in the document browser view controller, a `DocumentViewController` is presented, which has a reference to a `Document` instance. This `DocumentViewController` acts as the main user interface to modify the contents of a document.
 
 ### Migrating an Existing Document Based Application
 
@@ -41,27 +44,31 @@ Therefore, assign a transitioning delegate object to the document view controlle
 
 ## Configure a Custom File Format
 
-This sample illustrates how to introduce a custom file format to the system. 
-* For registering "Particles" as a new file format system-wide, the Particles app has an exported UTI configured in the Info panel of the target. Using the `public.filename-extension` in the additional exported UTI properties, the "particles" filename extension is bound to the new file format. 
-* To link the Particles app with the Particles file format, in the same panel the same UTI information is used for configuring the supported document types of the Particles app.
+This sample introduces a custom file format to the system called Particles. 
+* In order to register "Particles" as a new file format system-wide, the Particles app configures an exported UTI in the Info panel of the target. Using the `public.filename-extension` in the additional exported UTI properties, the "particles" filename extension is bound to the new file format.
+* The UTI information configures the supported document types of the Particles app in the same panel to link the Particles app with the Particles file format.
 
 ## Preview Custom Documents
 
 The sample provides two Quick Look extensions:
-* The ParticlesPreview extension, which generates preview views,
+* The ParticlesPreview extension, which generates preview views.
 * The ParticlesThumbnails extension, which generates thumbnails for files of the newly registered file format.
-In order for Quick Look to choose the extensions when dealing with Particles documents, the the `Info.plist` file, of both extensions, are configured with the data of the Particles file format.
+In order for Quick Look to choose the extensions when dealing with Particles documents, the `Info.plist` file of both extensions are configured with the data of the Particles file format.
 
 
-## Apply Best Practices
+## Use the `UIDocumentBrowserViewController` together with `UIDocument`
 
-Follow the tips below to avoid common pitfalls when working with files on iOS.
+The `UIDocument` class helps you to provide the commonly expected features of a document based application, such as saving and loading documents, asynchronous reading and writing of data, versioning with conflict detection, and much more. Additionally, `UIDocument` provides the automatic coordinated reading and writing needed to avoid problems when accessing a file on disk that could be read or written by other processes at the same time. If you need to access a file manually, make sure to use file coordination in order to not risk data loss or other severe data inconsistencies.
 
-**Use the `UIDocumentBrowserViewController` together with `UIDocument`.** The `UIDocument` class helps you to provide the commonly expected features of a document based application, such as saving and loading documents, asynchronous reading and writing of data, versioning with conflict detection, and much more. Additionally, `UIDocument` provides automatic coordinated reading and writing, which is needed to avoid problems when accessing a file on disk, which could be attempted to be read or written by other processes at the same time. If you need to access a file manually, make sure to use file coordination, in order to not risk data-loss or other severe data inconsistencies.
+## Claim Only the UTIs Your App Actually Supports
 
-**Claim only the UTIs your app actually supports.** Avoid listing high-level UTIs in the document types configured for your application. Only the UTIs that your application can actually handle should be listed. Otherwise, the document browser view controller will display files of unsupported file formats, e.g., in the Recents section, or in the search results, which are irrelevant to the user.
+Avoid listing high-level UTIs in the document types configured for your application. Only list the UTIs that your application can actually handle. Otherwise, the document browser view controller will display files of unsupported file formats, for example in the Recents section or in the search results, that are irrelevant to the user.
 
-**Configure the document types correctly.** Make sure to configure the document types, the exported and imported UTIs in your application's `Info.plist` file correctly. This is needed for dynamic sections such as Recent Documents, collections of tagged documents, and the popover of your application on the Home screen to work properly. 
+## Configure the Document Types Correctly
 
-**Know the difference.** The `UIDocumentPickerViewController` and `UIDocumentBrowserViewController` are two different view controllers, each with their own purpose. Use the `UIDocumentPickerViewController` to allow the user to quickly pick an existing file to, e.g., insert into the currently opened document, or to export a document to a certain location. Use the `UIDocumentBrowserViewController` as the entry point in your application to let the users create new or choose an existing document.
+Make sure to configure the document types and the exported and imported UTIs in your application's `Info.plist` file correctly. Dynamic sections such as Recent Documents, collections of tagged documents, and the popover of your application need this information to work properly.
+
+## Know When to Use the Picker View Controller
+
+The `UIDocumentPickerViewController` and `UIDocumentBrowserViewController` are two different view controllers, each with their own purpose. Use the `UIDocumentPickerViewController` to allow the user to quickly pick an existing file to, e.g., insert into the currently opened document, or to export a document to a certain location. Use the `UIDocumentBrowserViewController` as the entry point in your application to let the users create new or choose an existing document.
 

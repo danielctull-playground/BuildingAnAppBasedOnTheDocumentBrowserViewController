@@ -166,10 +166,9 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         do {
             // Obtain the bookmark data of the URL of the document that is currently presented, if there is any.
 
-            var bookmarkData: Data!
-            documentURL.accessSecurityScopedResource { url in
+            let bookmarkData = documentURL.accessSecurityScopedResource { url in
 
-                bookmarkData = try! url.bookmarkData()
+                return try! url.bookmarkData()
             }
 
             // Encode it with the coder.

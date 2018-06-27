@@ -3,7 +3,7 @@ import Foundation
 
 extension URL {
 
-	func accessSecurityScopedResource<Value>(_ accessor: (URL) -> Value) -> Value {
+	func accessSecurityScopedResource<Value>(_ accessor: (URL) throws -> Value) rethrows -> Value {
 
 		let didStartAccessing = startAccessingSecurityScopedResource()
 
@@ -13,6 +13,6 @@ extension URL {
 			}
 		}
 
-		return accessor(self)
+		return try accessor(self)
 	}
 }

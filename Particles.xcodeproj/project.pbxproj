@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24B3E6B420E39B640094007D /* URL+AccessSecurityScopedResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B3E6B320E39B640094007D /* URL+AccessSecurityScopedResource.swift */; };
 		4D6B7D4720ADDDE300EFBCCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6B7D4620ADDDE300EFBCCE /* AppDelegate.swift */; };
 		4D6B7D4920ADDDE300EFBCCE /* DocumentBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6B7D4820ADDDE300EFBCCE /* DocumentBrowserViewController.swift */; };
 		4D6B7D4B20ADDDE300EFBCCE /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6B7D4A20ADDDE300EFBCCE /* DocumentViewController.swift */; };
@@ -65,6 +66,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		24B3E6B320E39B640094007D /* URL+AccessSecurityScopedResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+AccessSecurityScopedResource.swift"; sourceTree = "<group>"; };
 		4D6B7D4320ADDDE300EFBCCE /* Particles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Particles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D6B7D4620ADDDE300EFBCCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D6B7D4820ADDDE300EFBCCE /* DocumentBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowserViewController.swift; sourceTree = "<group>"; };
@@ -88,8 +90,8 @@
 		4D6B7D8620ADE01D00EFBCCE /* BlankFile.particles */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = BlankFile.particles; sourceTree = "<group>"; };
 		4D6B7D8C20ADE0E200EFBCCE /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		4D80D04020ADE26F00647258 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		5553BA505553AA9000000001 /* SampleCode.xcconfig */ = {isa = PBXFileReference; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
-		556656405566007000000001 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE.txt; sourceTree = "<group>"; };
+		5553BA505553AA9000000001 /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
+		556656405566007000000001 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 				55669A8055664F3000000001 /* LICENSE */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		4D6B7D4420ADDDE300EFBCCE /* Products */ = {
 			isa = PBXGroup;
@@ -151,6 +154,7 @@
 				4D6B7D4620ADDDE300EFBCCE /* AppDelegate.swift */,
 				4D6B7D4820ADDDE300EFBCCE /* DocumentBrowserViewController.swift */,
 				4D6B7D4A20ADDDE300EFBCCE /* DocumentViewController.swift */,
+				24B3E6B320E39B640094007D /* URL+AccessSecurityScopedResource.swift */,
 				4D6B7D4C20ADDDE300EFBCCE /* Document.swift */,
 				4D6B7D8620ADE01D00EFBCCE /* BlankFile.particles */,
 				4D6B7D8520ADE01D00EFBCCE /* spark.png */,
@@ -212,7 +216,6 @@
 			children = (
 				556656405566007000000001 /* LICENSE.txt */,
 			);
-			name = LICENSE;
 			path = LICENSE;
 			sourceTree = "<group>";
 		};
@@ -227,7 +230,6 @@
 				4D6B7D4020ADDDE300EFBCCE /* Frameworks */,
 				4D6B7D4120ADDDE300EFBCCE /* Resources */,
 				4D6B7D7120ADDE4800EFBCCE /* Embed App Extensions */,
-				5217C46C20AF86E800B36C72,
 			);
 			buildRules = (
 			);
@@ -359,6 +361,7 @@
 				4D6B7D4B20ADDDE300EFBCCE /* DocumentViewController.swift in Sources */,
 				4D6B7D4920ADDDE300EFBCCE /* DocumentBrowserViewController.swift in Sources */,
 				4D6B7D4720ADDDE300EFBCCE /* AppDelegate.swift in Sources */,
+				24B3E6B420E39B640094007D /* URL+AccessSecurityScopedResource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

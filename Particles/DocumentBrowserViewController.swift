@@ -151,29 +151,35 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         
         // The system will call this method on the view controller when the application state needs to be preserved.
         // Encode relevant information using the coder instance, that is provided.
-        
-        if let documentViewController = presentedViewController as? DocumentViewController,
-           let documentURL = documentViewController.document?.fileURL {
-            do {
-                // Obtain the bookmark data of the URL of the document that is currently presented, if there is any.
-                let didStartAccessing = documentURL.startAccessingSecurityScopedResource()
-                defer {
-                    if didStartAccessing {
-                        documentURL.stopAccessingSecurityScopedResource()
-                    }
-                }
-                let bookmarkData = try documentURL.bookmarkData()
-                
-                // Encode it with the coder.
-                coder.encode(bookmarkData, forKey: DocumentBrowserViewController.bookmarkDataKey)
-                
-            } catch {
-                // Make sure to handle the failure appropriately, e.g., by showing an alert to the user
-                os_log("Failed to get bookmark data from URL %@: %@", log: OSLog.default, type: .error, documentURL as CVarArg, error as CVarArg)
-            }
+
+        defer {
+            super.encodeRestorableState(with: coder)
         }
-        
-        super.encodeRestorableState(with: coder)
+
+        guard
+            let documentViewController = presentedViewController as? DocumentViewController,
+            let documentURL = documentViewController.document?.fileURL
+        else {
+            return
+        }
+
+        do {
+            // Obtain the bookmark data of the URL of the document that is currently presented, if there is any.
+            let didStartAccessing = documentURL.startAccessingSecurityScopedResource()
+            defer {
+                if didStartAccessing {
+                    documentURL.stopAccessingSecurityScopedResource()
+                }
+            }
+            let bookmarkData = try documentURL.bookmarkData()
+
+            // Encode it with the coder.
+            coder.encode(bookmarkData, forKey: DocumentBrowserViewController.bookmarkDataKey)
+
+        } catch {
+            // Make sure to handle the failure appropriately, e.g., by showing an alert to the user
+            os_log("Failed to get bookmark data from URL %@: %@", log: OSLog.default, type: .error, documentURL as CVarArg, error as CVarArg)
+        }
     }
     
     override func decodeRestorableState(with coder: NSCoder) {
